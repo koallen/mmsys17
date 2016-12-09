@@ -2,6 +2,9 @@ import json
 import jieba
 
 def get_words_in_sentences(corpus):
+    """
+    Read words from corpus (to be fixed)
+    """
     word_list = dict()
     for sentence in corpus:
         for word in sentence["contain_words"]:
@@ -12,6 +15,9 @@ def get_words_in_sentences(corpus):
     return word_list
 
 def get_sentences(corpus):
+    """
+    Read sentences from corpus
+    """
     sentence_list = list()
     sentence_dict = dict()
     for sentence in corpus:
@@ -19,11 +25,11 @@ def get_sentences(corpus):
         sentence_dict[sentence["content"]] = sentence["sentiment"]
     return sentence_list, sentence_dict
 
+# load data
 with open("new_corpus.json") as corpus:
     corpus_json = json.load(corpus)
-
-words = get_words_in_sentences(corpus_json)
-sentences, sentence_dict = get_sentences(corpus_json)
+    words = get_words_in_sentences(corpus_json)
+    sentences, sentence_dict = get_sentences(corpus_json)
 
 # count non-neutral words
 non_neutral_count = 0
@@ -31,13 +37,12 @@ for word, word_sentiment in words.items():
     if word_sentiment != 'z':
         non_neutral_count += 1
 
+# some stats
 print("Non neutral word: " + str(non_neutral_count))
 print("There are in total " + str(len(sentences)) + " sentences")
 print("There are in total " + str(len(words)) + " words")
 
-training_set = sentences[:5000]
-test_set = sentences[5000:]
-
+# simple classification
 correct_count = 0
 
 for sentence in sentences:
