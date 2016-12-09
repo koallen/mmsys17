@@ -1,23 +1,13 @@
 import json
 import jieba
+from loader import DictionaryLoader
 
-def get_words_in_sentences(corpus):
-    """
-    Read words from corpus (to be fixed)
-    """
-    word_list = dict()
-    for sentence in corpus:
-        for word in sentence["contain_words"]:
-            if word["word"] not in word_list:
-                word_list[word["word"]] = word["word_sentiment"]
-            else:
-                pass
-    return word_list
-
-def get_sentences(corpus):
+def get_sentences(filename):
     """
     Read sentences from corpus
     """
+    with open(filename, "r") as corpus_json:
+        corpus = json.load(corpus_json)
     sentence_list = list()
     sentence_dict = dict()
     for sentence in corpus:
@@ -26,36 +16,8 @@ def get_sentences(corpus):
     return sentence_list, sentence_dict
 
 if __name__ == "__main__":
-    # load data
-    with open("new_corpus.json") as corpus:
-        corpus_json = json.load(corpus)
-        # words = get_words_in_sentences(corpus_json)
-        words = dict()
-        sentences, sentence_dict = get_sentences(corpus_json)
-    print("There are in total " + str(len(words)) + " words")
-
-    # load NTUSD
-    with open("ntusd-positive.txt") as np:
-        for line in np.readlines():
-            positive_word = line.strip("\n")
-            words[positive_word] = 'p'
-    print("There are in total " + str(len(words)) + " words")
-    with open("ntusd-negative.txt") as nn:
-        for line in nn.readlines():
-            negative_word = line.strip("\n")
-            words[negative_word] = 'n'
-    print("There are in total " + str(len(words)) + " words")
-
-    # count non-neutral words
-    non_neutral_count = 0
-    for word, word_sentiment in words.items():
-        if word_sentiment != 'z':
-            non_neutral_count += 1
-
-    # some stats
-    print("Non neutral word: " + str(non_neutral_count))
-    print("There are in total " + str(len(sentences)) + " sentences")
-    print("There are in total " + str(len(words)) + " words")
+    dictionary = DictionaryLoader().final_dictionary
+    sentences, sentence_dict = get_sentences("new_corpus.json")
 
     # simple classification
     correct_count = 0
@@ -64,10 +26,10 @@ if __name__ == "__main__":
         word_list = jieba.cut(sentence)
         total = 0
         for word in word_list:
-            if word in words:
-                if words[word] == 'p':
+            if word in dictionary:
+                if dictionary[word] == 'p':
                     total += 1
-                elif words[word] == 'n':
+                elif dictionary[word] == 'n':
                     total -= 1
         if total > 0:
             sentence_sentiment = 'p'
