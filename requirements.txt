@@ -1,0 +1,2 @@
+jieba==0.38
+jsonschema==2.5.1
