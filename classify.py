@@ -29,8 +29,22 @@ if __name__ == "__main__":
     # load data
     with open("new_corpus.json") as corpus:
         corpus_json = json.load(corpus)
-        words = get_words_in_sentences(corpus_json)
+        # words = get_words_in_sentences(corpus_json)
+        words = dict()
         sentences, sentence_dict = get_sentences(corpus_json)
+    print("There are in total " + str(len(words)) + " words")
+
+    # load NTUSD
+    with open("ntusd-positive.txt") as np:
+        for line in np.readlines():
+            positive_word = line.strip("\n")
+            words[positive_word] = 'p'
+    print("There are in total " + str(len(words)) + " words")
+    with open("ntusd-negative.txt") as nn:
+        for line in nn.readlines():
+            negative_word = line.strip("\n")
+            words[negative_word] = 'n'
+    print("There are in total " + str(len(words)) + " words")
 
     # count non-neutral words
     non_neutral_count = 0
