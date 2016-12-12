@@ -7,8 +7,8 @@ class DictionaryLoader:
 
     def __init__(self):
         # dictionaries = ["ntusd-positive.txt", "ntusd-negative.txt", "new_corpus.json"]
-        dictionaries = ["new_corpus.json", "ntusd-positive.txt", "ntusd-negative.txt"]
-        # dictionaries = ["ntusd-positive.txt", "ntusd-negative.txt"]
+        # dictionaries = ["new_corpus.json", "ntusd-positive.txt", "ntusd-negative.txt"]
+        dictionaries = ["ntusd-positive.txt", "ntusd-negative.txt"]
         # dictionaries = ["new_corpus.json"]
         self.load_dicts(dictionaries)
         self.generate_dict()
