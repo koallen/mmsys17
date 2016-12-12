@@ -1,6 +1,7 @@
 import json
 import jieba
 from loader import DictionaryLoader
+from classifier import SentimentClassifier
 
 def get_sentences(filename):
     """
@@ -16,32 +17,21 @@ def get_sentences(filename):
     return sentence_list, sentence_dict
 
 if __name__ == "__main__":
+    # load dictionary
     dictionary = DictionaryLoader().final_dictionary
+    print("Dictionary has " + str(len(dictionary)) + " words")
     sentences, sentence_dict = get_sentences("new_corpus.json")
 
     # simple classification
+    classifier = SentimentClassifier()
     correct_count = 0
 
     for sentence in sentences:
-        word_list = jieba.cut(sentence)
-        total = 0
-        for word in word_list:
-            if word in dictionary:
-                if dictionary[word] == 'p':
-                    total += 1
-                elif dictionary[word] == 'n':
-                    total -= 1
-        if total > 0:
-            sentence_sentiment = 'p'
-            # print("Sentence is positive")
-        elif total < 0:
-            sentence_sentiment = 'n'
-            # print("Sentence is negative")
-        else:
-            sentence_sentiment = 'z'
-            # print("Sentence is neutral")
-        if sentence_dict[sentence] == sentence_sentiment:
+        result = classifier.simple(sentence, sentence_dict[sentence], dictionary)
+        if result is True:
             correct_count += 1
+        else:
+            pass
 
     print("Correctly classified sentences: " + str(correct_count))
     print("Accuracy is: " + str(correct_count/len(sentences)))
