@@ -1,8 +1,8 @@
 import jieba
 
-class SentimentClassifier:
+class SimpleClassifier:
 
-    def simple(self, sentence, correct_sentiment, dictionary):
+    def classify(self, sentence, correct_sentiment, dictionary):
         word_in_sentence = jieba.cut(sentence)
         total_score = 0
         for word in word_in_sentence:

@@ -7,7 +7,8 @@ class DictionaryLoader:
 
     def __init__(self):
         # dictionaries = ["ntusd-positive.txt", "ntusd-negative.txt", "new_corpus.json"]
-        dictionaries = ["ntusd-positive.txt", "ntusd-negative.txt"]
+        dictionaries = ["new_corpus.json", "ntusd-positive.txt", "ntusd-negative.txt"]
+        # dictionaries = ["ntusd-positive.txt", "ntusd-negative.txt"]
         # dictionaries = ["new_corpus.json"]
         self.load_dicts(dictionaries)
         self.generate_dict()
@@ -37,13 +38,13 @@ class DictionaryLoader:
                     self.init_dictionary[word] = dict()
                     self.init_dictionary[word]["p"] = 0
                     self.init_dictionary[word]["n"] = 0
+                    # increment counter
+                    self.init_dictionary[word][p_or_n] += 1
                 else:
                     pass
-                # increment counter
-                self.init_dictionary[word][p_or_n] += 1
 
     def load_json(self, filename):
-        current_dict = copy.deepcopy(self.init_dictionary)
+        # current_dict = copy.deepcopy(self.init_dictionary)
         with open(filename, "r") as json_file:
             sentences = json.load(json_file)
             for sentence in sentences:
@@ -51,7 +52,7 @@ class DictionaryLoader:
                 for word in words:
                     actual_word = word["word"]
                     sentiment = word["word_sentiment"]
-                    if actual_word not in current_dict and sentiment != "z":
+                    if sentiment != "z":
                         if actual_word not in self.init_dictionary:
                             # initialize dictionary
                             self.init_dictionary[actual_word] = dict()

@@ -1,7 +1,7 @@
 import json
 import jieba
 from loader import DictionaryLoader
-from classifier import SentimentClassifier
+from classifier import SimpleClassifier
 
 def get_sentences(filename):
     """
@@ -23,11 +23,11 @@ if __name__ == "__main__":
     sentences, sentence_dict = get_sentences("new_corpus.json")
 
     # simple classification
-    classifier = SentimentClassifier()
+    simple_classifier = SimpleClassifier()
     correct_count = 0
 
     for sentence in sentences:
-        result = classifier.simple(sentence, sentence_dict[sentence], dictionary)
+        result = simple_classifier.classify(sentence, sentence_dict[sentence], dictionary)
         if result is True:
             correct_count += 1
         else:
