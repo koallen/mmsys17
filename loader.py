@@ -6,10 +6,10 @@ class DictionaryLoader:
     final_dictionary = dict()
 
     def __init__(self):
-        # dictionaries = ["ntusd-positive.txt", "ntusd-negative.txt", "new_corpus.json"]
+        # dictionaries = ["dictionaries/ntusd-positive.txt", "dictionaries/ntusd-negative.txt", "dictionaries/new_corpus.json"]
         # dictionaries = ["new_corpus.json", "ntusd-positive.txt", "ntusd-negative.txt"]
-        dictionaries = ["ntusd-positive.txt", "ntusd-negative.txt"]
-        # dictionaries = ["new_corpus.json"]
+        dictionaries = ["dictionaries/ntusd-positive.txt", "dictionaries/ntusd-negative.txt"]
+        # dictionaries = ["dictionaries/new_corpus.json"]
         self.load_dicts(dictionaries)
         self.generate_dict()
 
@@ -55,9 +55,7 @@ class DictionaryLoader:
                     if sentiment != "z":
                         if actual_word not in self.init_dictionary:
                             # initialize dictionary
-                            self.init_dictionary[actual_word] = dict()
-                            self.init_dictionary[actual_word]["p"] = 0
-                            self.init_dictionary[actual_word]["n"] = 0
+                            self.init_dictionary[actual_word] = {"p": 0, "n": 0}
                         else:
                             pass
                         # increment counter
