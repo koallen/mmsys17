@@ -68,7 +68,7 @@ def gen_data(sentence, sentence_dict, dictionary):
 def svm_classify(sentences, sentence_dict, dictionary):
     # SVM classification
     training_set, training_label, test_set, test_label = gen_data(sentences, sentence_dict, dictionary)
-    clf = svm.SVC()
+    clf = svm.SVC(kernel='linear')
     clf.fit(training_set, training_label)
     result = clf.predict(test_set)
     correct_count = np.sum(np.equal(result, test_label))
