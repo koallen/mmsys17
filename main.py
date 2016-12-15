@@ -2,27 +2,16 @@ import json
 import jieba
 from sklearn import svm
 import numpy as np
-from loader import DictionaryLoader
+from loader import DictionaryLoader, CorpusLoader
 from classifier import SimpleClassifier
 
-def get_sentences(filename):
-    """
-    Read sentences from corpus
-    """
-    with open(filename, "r") as corpus_json:
-        corpus = json.load(corpus_json)
-    sentence_list = list()
-    sentence_dict = dict()
-    for sentence in corpus:
-        sentence_list.append(sentence["content"])
-        sentence_dict[sentence["content"]] = sentence["sentiment"]
-    return sentence_list, sentence_dict
-
 if __name__ == "__main__":
-    # load dictionary
+    # load dictionary and corpus
     dictionary = DictionaryLoader().final_dictionary
-    print("Dictionary has " + str(len(dictionary)) + " words")
-    sentences, sentence_dict = get_sentences("dictionaries/new_corpus.json")
+    corpus = CorpusLoader()
+    sentences = corpus.sentence_list
+    sentence_dict = corpus.sentence_dict
+    print("Dictionaries and corpus loaded successfully")
 
     # svm
     # with open("dictionaries/new_corpus.json", "r") as corpus_json:
@@ -75,8 +64,6 @@ if __name__ == "__main__":
             word = word.strip("\n")
             inverse.append(word)
 
-    result = simple_classifier.classify("今天的天气未必不好", "p", dictionary, inverse)
-    print(result)
     for sentence in sentences:
         result = simple_classifier.classify(sentence, sentence_dict[sentence], dictionary, inverse)
         if result is True:

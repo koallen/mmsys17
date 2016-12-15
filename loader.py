@@ -1,5 +1,4 @@
 import json
-import copy
 
 class DictionaryLoader:
     init_dictionary = dict()
@@ -75,3 +74,20 @@ class DictionaryLoader:
             elif v["p"] < v["n"]:
                 self.final_dictionary[k] = "n"
 
+class CorpusLoader:
+
+    def __init__(self):
+        filename = "dictionaries/new_corpus.json"
+        self.load(filename)
+
+    def load(self, filename):
+        """
+        Read sentences from corpus
+        """
+        with open(filename, "r") as corpus_json:
+            corpus = json.load(corpus_json)
+        self.sentence_list = list()
+        self.sentence_dict = dict()
+        for sentence in corpus:
+            self.sentence_list.append(sentence["content"])
+            self.sentence_dict[sentence["content"]] = sentence["sentiment"]
