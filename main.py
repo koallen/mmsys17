@@ -1,6 +1,7 @@
 import json
 import jieba
 from sklearn import svm
+from sklearn.metrics import f1_score
 import numpy as np
 from loader import DictionaryLoader, CorpusLoader
 from classifier import SimpleClassifier
@@ -73,6 +74,7 @@ def svm_classify(sentences, sentence_dict, dictionary):
     result = clf.predict(test_set)
     correct_count = np.sum(np.equal(result, test_label))
     print("SVM accuracy: " + str(correct_count/len(test_label)))
+    print("SVM F1 score: " + str(f1_score(test_label, result, average='weighted')))
 
 def simple_classify(sentences, sentence_dict, dictionary):
     # simple classification
