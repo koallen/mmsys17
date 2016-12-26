@@ -50,9 +50,9 @@ if __name__ == "__main__":
 
     recall = correct_labels / total_labels
     precision = correct_labels / result_labels
-
-    print(recall, precision)
+    f1score = (2 * precision * recall) / (precision + recall)
 
     print("Precision: " + str(precision))
     print("Recall: " + str(recall))
+    print("F1 score: " + str(f1score))
 
