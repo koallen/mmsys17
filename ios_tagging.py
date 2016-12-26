@@ -48,8 +48,11 @@ if __name__ == "__main__":
                 if true_pairs[word] == ios:
                     correct_labels += 1
 
-    precision = correct_labels / total_labels
-    recall = correct_labels / result_labels
+    recall = correct_labels / total_labels
+    precision = correct_labels / result_labels
 
-    print(precision, recall)
+    print(recall, precision)
+
+    print("Precision: " + str(precision))
+    print("Recall: " + str(recall))
 
