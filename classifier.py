@@ -34,6 +34,6 @@ class SimpleClassifier:
             sentence_sentiment = 'z'
             # print("Sentence is neutral")
         if correct_sentiment == sentence_sentiment:
-            return True
+            return (True, correct_sentiment, sentence_sentiment)
         else:
-            return False
+            return (False, correct_sentiment, sentence_sentiment)
