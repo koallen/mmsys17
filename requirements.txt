@@ -1,2 +1,12 @@
+cycler==0.10.0
 jieba==0.38
 jsonschema==2.5.1
+matplotlib==1.5.3
+numpy==1.11.2
+pyparsing==2.1.10
+python-dateutil==2.6.0
+pytz==2016.10
+scikit-learn==0.18.1
+scipy==0.18.1
+six==1.10.0
+snownlp==0.12.3
