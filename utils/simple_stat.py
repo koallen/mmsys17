@@ -17,8 +17,10 @@ plt.show()
 pos_count = 0
 neu_count = 0
 neg_count = 0
+total_count = 0
 
 for sentence in corpus:
+    total_count += 1
     if sentence["sentiment"] == "p":
         pos_count += 1
     elif sentence["sentiment"] == "n":
@@ -26,10 +28,11 @@ for sentence in corpus:
     elif sentence["sentiment"] == "z":
         neu_count += 1
 
-x = [pos_count, neu_count, neg_count]
+x = [pos_count / total_count, neu_count / total_count, neg_count / total_count]
 y = [0, 1, 2]
 y_label = ["Positive", "Neutral", "Negative"]
 
 plt.bar(y, x, color="b", align="center", width=0.5)
 plt.xticks(y, y_label)
+plt.ylabel("Relative frequency")
 plt.show()
