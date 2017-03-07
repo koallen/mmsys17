@@ -97,9 +97,9 @@ def plot_confusion_matrix(cm, classes,
                  horizontalalignment="center",
                  color="white" if cm[i, j] > thresh else "black")
 
-    plt.tight_layout()
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
+    plt.tight_layout()
 
 def svm_classify(sentences, sentence_dict, dictionary):
     # SVM classification
@@ -198,6 +198,6 @@ if __name__ == "__main__":
     print(len(word_list))
 
     # SVM
-    # svm_classify(sentences, sentence_dict, dictionary)
+    svm_classify(sentences, sentence_dict, dictionary)
     # simple
     simple_classify(sentences, sentence_dict, dictionary)
