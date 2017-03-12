@@ -3,6 +3,7 @@ import jieba
 from sklearn import svm
 from sklearn.metrics import f1_score, confusion_matrix
 import matplotlib.pyplot as plt
+import matplotlib
 import itertools
 import numpy as np
 from loader import DictionaryLoader, CorpusLoader
@@ -179,6 +180,8 @@ def simple_classify(sentences, sentence_dict, dictionary):
     print("Simple algorithm accuracy: " + str(correct_count/len(sentences)))
 
 if __name__ == "__main__":
+    # matplotlib
+    matplotlib.rcParams.update({'font.size': 16})
     # load dictionary and corpus
     dictionary = DictionaryLoader().final_dictionary
     corpus = CorpusLoader()

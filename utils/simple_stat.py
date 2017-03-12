@@ -1,7 +1,11 @@
 import json
 import matplotlib.pyplot as plt
+import matplotlib
 import numpy as np
 from random import shuffle
+
+# matplotlib settings
+matplotlib.rcParams.update({'font.size': 24})
 
 with open("../dictionaries/new_corpus.json", "r") as corpus_json:
     corpus = json.load(corpus_json)
@@ -20,7 +24,7 @@ for length in length_list:
 
 print("<= 20 ", count/len(length_list))
 
-plt.hist(length_list, bins = 50, color="b")
+plt.hist(length_list, bins = 50, color="#909ECE")
 plt.xlabel("Sentence length")
 plt.ylabel("Frequency")
 plt.tight_layout()
@@ -44,35 +48,25 @@ for sentence in corpus:
 for polarity in [pos_count, neu_count, neg_count]:
     print("percentage ", polarity * 100.0 / total_count)
 
+plt.rcParams['patch.linewidth'] = 0  
+
 x = [pos_count / total_count, neu_count / total_count, neg_count / total_count]
 y = [0, 1, 2]
 y_label = ["Positive", "Neutral", "Negative"]
 
-#plt.bar(y, x, color="b", align="center", width=0.5)
-#plt.xticks(y, y_label)
-#plt.xlabel("Sentence polarity")
-#plt.ylabel("Relative frequency")
-#plt.tight_layout()
-#plt.show()
-
 ## pie chart
-slices = [1,2,3] * 4 + [20, 25, 30] * 2
-shuffle(slices)
-cmap = plt.cm.prism
-colors = cmap(np.linspace(0., 1., len(slices)))
+colors = ["#909ECE", "#FF9E4A", "#67BF5C"]
 fig1, ax1 = plt.subplots()
 ax1.pie(x, labels=y_label, startangle=90, autopct='%1.1f%%', colors=colors)
 ax1.axis('equal')
-plt.xlabel("Sentence polarity")
 plt.show()
 
 # influence-of-speech
 total_count = 0
-size = [0 for x in range(5)]
+size = [0 for x in range(7)]
 for sentence in corpus:
     for word in sentence["contain_words"]:
-        if word["word_semantic"] not in ("m", "p", "t"):
-            total_count += 1
+        total_count += 1
         if word["word_semantic"] == "e":
             size[3] += 1
         elif word["word_semantic"] == "i":
@@ -83,16 +77,16 @@ for sentence in corpus:
             size[2] += 1
         elif word["word_semantic"] == "a":
             size[4] += 1
+        elif word["word_semantic"] == "m":
+            size[5] += 1
+        elif word["word_semantic"] == "p":
+            size[6] += 1
 size = [i / total_count for i in size]
-y_label = ["Intelligence", "Character", "Language", "Emotion", "Art"]
+y_label = ["Intelligence", "Character", "Language", "Emotion", "Art", "Meaningless", "Punctuation"]
 
 ## pie chart
-slices = [1,2,3] * 4 + [20, 25, 30] * 2
-shuffle(slices)
-cmap = plt.cm.prism
-colors = cmap(np.linspace(0., 1., len(slices)))
+colors = ["#909ECE", "#FF9E4A", "#67BF5C", "#ED665D", "#AD8BC9", "#6DCCDA", "#ED97CA"]
 fig1, ax1 = plt.subplots()
-ax1.pie(size, labels=y_label, startangle=180, autopct='%1.1f%%', colors=colors)
+ax1.pie(size, labels=y_label, startangle=90, autopct='%1.1f%%', colors=colors)
 ax1.axis('equal')
-plt.xlabel("Word influence")
 plt.show()
