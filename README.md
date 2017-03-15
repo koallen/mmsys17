@@ -1,14 +1,5 @@
 # MMSys 17
 
-Source code for MMSys 17 paper. To run the code, first install all the dependencies by
-
-```bash
-$ pip3 install -r requirements.txt
-
-```
-
-, then type
-
-```bash
-$ python3 main.py
-```
+This repository contains source code for experiments for our MMSys 17 paper. It also contains the NTUISC corpus.
+The corpus can be found in the `dictionaries` folder and the experiments are available in the `experiments` folder.
+Details are included in the `README.md` file in each folder.
